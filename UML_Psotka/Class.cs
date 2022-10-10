@@ -42,6 +42,15 @@ namespace UML_Psotka
             PRIVATE = '-',
             PROTECTED = '#',
         }
+        public enum dataType
+        {
+            INT,
+            FLOAT,
+            DOUBLE,
+            STRING,
+            BOOL,
+            CHAR,
+        }
 
 
         public Class(int xPosition, int yPosition)
@@ -50,7 +59,7 @@ namespace UML_Psotka
             this.X = xPosition;
             this.Y = yPosition;
             this.isAbstract = false;
-            this.MinHeight = 100;
+            this.MinHeight = 70;
             this.MinWidth = 100;
             this.Width = MinWidth;
             this.Height = MinHeight;
@@ -126,16 +135,21 @@ namespace UML_Psotka
                 font = new Font("Arial", 10);
 
             SizeF result;
+            int resultHeight = 0;
+            this.Height = 70;
+            this.MinHeight = 70;
+            this.MinWidth = 100;
+            this.Width = 100;
             using (var image = new Bitmap(1, 1))
             {
                 using (var g = Graphics.FromImage(image))
                 {
                     result = g.MeasureString(Name, font);
-                    if(result.Width + 20 > this.MinWidth)
+                    if (result.Width + 20 > this.MinWidth)
                     {
-                        this.MinWidth = (int)result.Width + 8;
+                        this.MinWidth = (int)result.Width + 20;
                     }
-
+                    resultHeight += (int)result.Height;
                     font = new Font("Arial", 10);
 
                     foreach (var item in Properties)
@@ -145,25 +159,23 @@ namespace UML_Psotka
                         {
                             this.MinWidth = (int)result.Width + 8;
                         }
-
+                        resultHeight += (int)result.Height;
                     }
                     foreach (var item in Methods)
                     {
                         result = g.MeasureString(item.ToString(), font);
-                        if (result.Width  > this.MinWidth)
+                        if (result.Width > this.MinWidth)
                         {
                             this.MinWidth = (int)result.Width + 8;
                         }
-
+                        resultHeight += (int)result.Height;
                     }
                 }
             }
-            if (this.Width < this.MinWidth)
-            {
-                this.Width = this.MinWidth;
-            }
-
+            resultHeight += 25;
+            this.MinHeight = resultHeight;
+            this.Height = this.MinHeight;
+            this.Width = this.MinWidth;
         }
-
     }
 }

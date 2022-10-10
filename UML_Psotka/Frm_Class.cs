@@ -15,9 +15,11 @@ namespace UML_Psotka
     {
         public Class Class;
 
+        public List<Class> ClassList = new List<Class>();
+
         public Frm_Class(Class @class)
         {
-            Class = @class; 
+            Class = @class;
             InitializeComponent();
             this.textBox_name.Text = Class.Name;
             this.checkBox_abstract.Checked = Class.isAbstract;
@@ -62,23 +64,30 @@ namespace UML_Psotka
         private void textBox_name_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.textBox_name, null);
+            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
 
-            if (string.IsNullOrWhiteSpace(this.textBox_name.Text) )
+            if (string.IsNullOrWhiteSpace(this.textBox_name.Text))
             {
-                this.errorProvider1.SetError(this.textBox_name, "Pole je povinné");
+                this.errorProvider1.SetError(this.textBox_name, "Pole nesmí být prázdné!");
                 e.Cancel = true;
             }
-            if (this.textBox_name.Text.Contains(' '))
+            else if (this.textBox_name.Text.Contains(' '))
             {
                 this.errorProvider1.SetError(this.textBox_name, "Nesmí mít mezery!");
                 e.Cancel = true;
             }
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůú]+$");
-            if (!rx.IsMatch(this.textBox_name.Text))
+            else if (!rx.IsMatch(this.textBox_name.Text))
             {
                 this.errorProvider1.SetError(this.textBox_name, "Pouze písmena,čísla a podtržítko!");
                 e.Cancel = true;
             }
+            else if (this.ClassList.Any(x => x.Name == this.textBox_name.Text))
+            {
+                this.errorProvider1.SetError(this.textBox_name, "Jméno musí být unikátní!");
+                e.Cancel = true;
+            }
         }
+
     }
 }
+

@@ -30,8 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox_Name = new System.Windows.Forms.TextBox();
-            this.textBox_Output = new System.Windows.Forms.TextBox();
+            this.comboBox_Name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox_AccM = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +40,7 @@
             this.button_Ok = new System.Windows.Forms.Button();
             this.button_DeleteParameter = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.comboBox_Output = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,21 +53,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name:";
             // 
-            // textBox_Name
+            // comboBox_Name
             // 
-            this.textBox_Name.Location = new System.Drawing.Point(87, 25);
-            this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(126, 23);
-            this.textBox_Name.TabIndex = 1;
-            this.textBox_Name.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Name_Validating);
-            // 
-            // textBox_Output
-            // 
-            this.textBox_Output.Location = new System.Drawing.Point(87, 54);
-            this.textBox_Output.Name = "textBox_Output";
-            this.textBox_Output.Size = new System.Drawing.Size(126, 23);
-            this.textBox_Output.TabIndex = 1;
-            this.textBox_Output.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Output_Validating);
+            this.comboBox_Name.Location = new System.Drawing.Point(87, 25);
+            this.comboBox_Name.Name = "comboBox_Name";
+            this.comboBox_Name.Size = new System.Drawing.Size(126, 23);
+            this.comboBox_Name.TabIndex = 1;
+            this.comboBox_Name.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Name_Validating);
             // 
             // label2
             // 
@@ -80,6 +72,7 @@
             // 
             // comboBox_AccM
             // 
+            this.comboBox_AccM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_AccM.FormattingEnabled = true;
             this.comboBox_AccM.Location = new System.Drawing.Point(87, 83);
             this.comboBox_AccM.Name = "comboBox_AccM";
@@ -99,7 +92,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(87, 112);
+            this.listBox1.Location = new System.Drawing.Point(87, 126);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(126, 94);
             this.listBox1.TabIndex = 8;
@@ -107,7 +100,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 112);
+            this.label4.Location = new System.Drawing.Point(15, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 15);
             this.label4.TabIndex = 6;
@@ -115,9 +108,9 @@
             // 
             // button_addPar
             // 
-            this.button_addPar.Location = new System.Drawing.Point(21, 130);
+            this.button_addPar.Location = new System.Drawing.Point(15, 144);
             this.button_addPar.Name = "button_addPar";
-            this.button_addPar.Size = new System.Drawing.Size(60, 22);
+            this.button_addPar.Size = new System.Drawing.Size(67, 23);
             this.button_addPar.TabIndex = 9;
             this.button_addPar.Text = "Add";
             this.button_addPar.UseVisualStyleBackColor = true;
@@ -135,9 +128,9 @@
             // 
             // button_DeleteParameter
             // 
-            this.button_DeleteParameter.Location = new System.Drawing.Point(21, 158);
+            this.button_DeleteParameter.Location = new System.Drawing.Point(15, 173);
             this.button_DeleteParameter.Name = "button_DeleteParameter";
-            this.button_DeleteParameter.Size = new System.Drawing.Size(60, 22);
+            this.button_DeleteParameter.Size = new System.Drawing.Size(67, 22);
             this.button_DeleteParameter.TabIndex = 9;
             this.button_DeleteParameter.Text = "Delete";
             this.button_DeleteParameter.UseVisualStyleBackColor = true;
@@ -147,12 +140,22 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // comboBox_Output
+            // 
+            this.comboBox_Output.FormattingEnabled = true;
+            this.comboBox_Output.Location = new System.Drawing.Point(87, 54);
+            this.comboBox_Output.Name = "comboBox_Output";
+            this.comboBox_Output.Size = new System.Drawing.Size(126, 23);
+            this.comboBox_Output.TabIndex = 10;
+            this.comboBox_Output.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Output_Validating);
+            // 
             // Frm_Method
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(226, 287);
+            this.ClientSize = new System.Drawing.Size(241, 287);
+            this.Controls.Add(this.comboBox_Output);
             this.Controls.Add(this.button_Ok);
             this.Controls.Add(this.button_DeleteParameter);
             this.Controls.Add(this.button_addPar);
@@ -160,8 +163,7 @@
             this.Controls.Add(this.comboBox_AccM);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox_Output);
-            this.Controls.Add(this.textBox_Name);
+            this.Controls.Add(this.comboBox_Name);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Frm_Method";
@@ -176,8 +178,7 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox_Name;
-        private TextBox textBox_Output;
+        private TextBox comboBox_Name;
         private Label label2;
         private ComboBox comboBox_AccM;
         private Label label3;
@@ -187,5 +188,6 @@
         private Button button_Ok;
         private Button button_DeleteParameter;
         private ErrorProvider errorProvider1;
+        private ComboBox comboBox_Output;
     }
 }

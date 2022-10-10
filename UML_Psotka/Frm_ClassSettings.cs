@@ -15,14 +15,15 @@ namespace UML_Psotka
     public partial class Frm_ClassSettings : Form
     {
         public Class Class { get; set; }
+        public List<Class> ClassList = new List<Class>();
 
 
 
-        public Frm_ClassSettings(Class @class)
+        public Frm_ClassSettings(Class @class,List<Class> classList)
         {
             this.Class = @class;
             InitializeComponent();
-
+            this.ClassList = classList;
             this.label_Class.Text = this.Class.Name;
             this.listBox_Methods.DataSource = Class.Methods.ToList();
             this.listBox_Properties.DataSource = Class.Properties.ToList();
@@ -32,7 +33,7 @@ namespace UML_Psotka
         private void button_AddProp_Click(object sender, EventArgs e)
         {
 
-            Frm_Prop frm = new Frm_Prop(new Property());
+            Frm_Prop frm = new Frm_Prop(new Property(),this.Class);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.Class.Properties.Add(frm.Property);
@@ -46,7 +47,7 @@ namespace UML_Psotka
             if (this.listBox_Properties.Items.Count <= 0)
                 return;
             Property prop = this.listBox_Properties.SelectedItem as Property;
-            Frm_Prop frm = new Frm_Prop(prop);
+            Frm_Prop frm = new Frm_Prop(prop, this.Class);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.Class.Properties.Remove(prop);
@@ -73,7 +74,7 @@ namespace UML_Psotka
 
         private void button_Rename_Click(object sender, EventArgs e)
         {
-            Frm_Name frm = new Frm_Name(this.Class.Name);
+            Frm_Name frm = new Frm_Name(this.Class.Name, this.ClassList);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.Class.Name = frm.Name;
@@ -94,7 +95,7 @@ namespace UML_Psotka
 
         private void button_AddMethod_Click(object sender, EventArgs e)
         {
-            Frm_Method frm = new Frm_Method(new Method());
+            Frm_Method frm = new Frm_Method(new Method(), this.Class);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.Class.Methods.Add(frm.Method);
@@ -108,7 +109,7 @@ namespace UML_Psotka
             if (this.listBox_Methods.Items.Count <= 0)
                 return;
             Method meth = this.listBox_Methods.SelectedItem as Method;
-            Frm_Method frm = new Frm_Method(meth);
+            Frm_Method frm = new Frm_Method(meth, this.Class);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 this.Class.Methods.Remove(meth);

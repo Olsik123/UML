@@ -97,6 +97,7 @@
             // 
             // comboBox_AccM
             // 
+            this.comboBox_AccM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_AccM.FormattingEnabled = true;
             this.comboBox_AccM.Location = new System.Drawing.Point(74, 103);
             this.comboBox_AccM.Name = "comboBox_AccM";

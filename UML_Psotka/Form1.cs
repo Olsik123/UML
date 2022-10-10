@@ -15,7 +15,7 @@ namespace UML_Psotka
         {
             InitializeComponent();
         }
-
+        
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
             GC.Collect();
@@ -56,10 +56,7 @@ namespace UML_Psotka
                 this.StartY += 10;
             }
             Frm_Class frm = new Frm_Class(new Class(StartX, StartY));
-
-            if (frm.ShowDialog() == DialogResult.OK)            
-                this.App.Classes.Add(frm.Class);          
-            
+            this.App.CreateClass(frm);               
             this.pictureBox.Refresh();
         }
 
@@ -85,5 +82,13 @@ namespace UML_Psotka
             this.pictureBox.Refresh();
         }
 
+
+        private void pictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+                return;
+            this.App.DoubleClick(e.X, e.Y);
+            this.pictureBox.Refresh();
+        }
     }
 }

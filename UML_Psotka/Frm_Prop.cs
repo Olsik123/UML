@@ -15,16 +15,20 @@ namespace UML_Psotka
     public partial class Frm_Prop : Form
     {
         public Property Property { get; set; }
-        public Frm_Prop(Property prop)
+        public List<Class> ClassList = new List<Class>();
+        public Class Class { get; set; }
+
+
+        public Frm_Prop(Property prop, Class classs)
         {
-            
+
             Property = prop;
             InitializeComponent();
             this.textBox_Name.Text = prop.Name;
             this.textBox_DataType.Text = prop.DataType;
             this.comboBox_AccM.DataSource = Enum.GetValues(typeof(accessModifiers));
             this.comboBox_AccM.Text = prop.AccessM.ToString();
-
+            Class = classs;
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -52,22 +56,25 @@ namespace UML_Psotka
         private void textBox_Name_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.textBox_Name, null);
-
+            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
             if (String.IsNullOrWhiteSpace(this.textBox_Name.Text))
             {
-                this.errorProvider1.SetError(this.textBox_Name, "Pole je povinné");
+                this.errorProvider1.SetError(this.textBox_Name, "Pole nesmí být prázdné!");
                 e.Cancel = true;
             }
-            if (this.textBox_Name.Text.Contains(' '))
+            else if (this.textBox_Name.Text.Contains(' '))
             {
                 this.errorProvider1.SetError(this.textBox_Name, "Nesmí mít mezery!");
                 e.Cancel = true;
             }
-
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůú]+$");
-            if (!rx.IsMatch(this.textBox_Name.Text))
+            else if (!rx.IsMatch(this.textBox_Name.Text))
             {
                 this.errorProvider1.SetError(this.textBox_Name, "Pouze písmena,čísla a podtržítko!");
+                e.Cancel = true;
+            }
+            else if (this.Class.Properties.Any(x => x.Name == this.textBox_Name.Text))
+            {
+                this.errorProvider1.SetError(this.textBox_Name, "Jméno musí být unikátní!");
                 e.Cancel = true;
             }
         }
@@ -75,20 +82,19 @@ namespace UML_Psotka
         private void textBox_DataType_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.textBox_DataType, null);
-
+            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
             if (String.IsNullOrWhiteSpace(this.textBox_DataType.Text))
             {
-                this.errorProvider1.SetError(this.textBox_DataType, "Pole je povinné");
+                this.errorProvider1.SetError(this.textBox_DataType, "Pole nesmí být prázdné!");
                 e.Cancel = true;
             }
-            if (this.textBox_DataType.Text.Contains(' '))
+            else if (this.textBox_DataType.Text.Contains(' '))
             {
                 this.errorProvider1.SetError(this.textBox_DataType, "Nesmí mít mezery!");
                 e.Cancel = true;
             }
 
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůú]+$");
-            if (!rx.IsMatch(this.textBox_DataType.Text))
+            else if (!rx.IsMatch(this.textBox_DataType.Text))
             {
                 this.errorProvider1.SetError(this.textBox_DataType, "Pouze písmena,čísla a podtržítko!");
                 e.Cancel = true;
