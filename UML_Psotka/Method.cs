@@ -11,23 +11,21 @@ namespace UML_Psotka
     {
         public string Name { get; set; }
 
-        public List<string> Parameters { get; set; } = new List<string>();
+        public Dictionary<string, string> Parameters { get; set; } = new Dictionary<string, string>();
 
-        public string Output { get; set; }
+          public string Output { get; set; }
 
         public accessModifiers AccessM { get; set; }
 
         public override string ToString()
         {
             string parameters = "";
-            int p = 1;
             foreach (var item in Parameters)
             {
-                parameters += "p"+p;
+                parameters += item.Key;
                 parameters += " : ";
-                parameters += item;
+                parameters += item.Value;
                 parameters += ", ";
-                p++;
             }
             if(parameters.Length >2)
             parameters = parameters.Substring(0,parameters.Length - 2);

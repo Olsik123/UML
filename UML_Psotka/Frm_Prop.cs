@@ -24,8 +24,12 @@ namespace UML_Psotka
 
             Property = prop;
             InitializeComponent();
+            foreach (var item in Enum.GetValues(typeof(dataType)))
+            {
+                comboBox_DataType.Items.Add(item.ToString());
+            }
             this.textBox_Name.Text = prop.Name;
-            this.textBox_DataType.Text = prop.DataType;
+            this.comboBox_DataType.Text = prop.DataType;
             this.comboBox_AccM.DataSource = Enum.GetValues(typeof(accessModifiers));
             this.comboBox_AccM.Text = prop.AccessM.ToString();
             Class = classs;
@@ -36,7 +40,7 @@ namespace UML_Psotka
             if (this.ValidateChildren())
             {
                 Property.Name = this.textBox_Name.Text;
-                Property.DataType = this.textBox_DataType.Text;
+                Property.DataType = this.comboBox_DataType.Text;
                 Property.AccessM = (accessModifiers) Enum.Parse(typeof(accessModifiers),this.comboBox_AccM.SelectedValue.ToString(),true);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -56,7 +60,7 @@ namespace UML_Psotka
         private void textBox_Name_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.textBox_Name, null);
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
             if (String.IsNullOrWhiteSpace(this.textBox_Name.Text))
             {
                 this.errorProvider1.SetError(this.textBox_Name, "Pole nesmí být prázdné!");
@@ -81,22 +85,22 @@ namespace UML_Psotka
 
         private void textBox_DataType_Validating(object sender, CancelEventArgs e)
         {
-            this.errorProvider1.SetError(this.textBox_DataType, null);
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
-            if (String.IsNullOrWhiteSpace(this.textBox_DataType.Text))
+            this.errorProvider1.SetError(this.comboBox_DataType, null);
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
+            if (String.IsNullOrWhiteSpace(this.comboBox_DataType.Text))
             {
-                this.errorProvider1.SetError(this.textBox_DataType, "Pole nesmí být prázdné!");
+                this.errorProvider1.SetError(this.comboBox_DataType, "Pole nesmí být prázdné!");
                 e.Cancel = true;
             }
-            else if (this.textBox_DataType.Text.Contains(' '))
+            else if (this.comboBox_DataType.Text.Contains(' '))
             {
-                this.errorProvider1.SetError(this.textBox_DataType, "Nesmí mít mezery!");
+                this.errorProvider1.SetError(this.comboBox_DataType, "Nesmí mít mezery!");
                 e.Cancel = true;
             }
 
-            else if (!rx.IsMatch(this.textBox_DataType.Text))
+            else if (!rx.IsMatch(this.comboBox_DataType.Text))
             {
-                this.errorProvider1.SetError(this.textBox_DataType, "Pouze písmena,čísla a podtržítko!");
+                this.errorProvider1.SetError(this.comboBox_DataType, "Pouze písmena,čísla a podtržítko!");
                 e.Cancel = true;
             }
         }

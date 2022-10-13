@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static UML_Psotka.Class;
@@ -24,7 +25,7 @@ namespace UML_Psotka
             this.Class = @class;
             InitializeComponent();
             this.ClassList = classList;
-            this.label_Class.Text = this.Class.Name;
+            this.textBox_Name.Text = this.Class.Name;
             this.listBox_Methods.DataSource = Class.Methods.ToList();
             this.listBox_Properties.DataSource = Class.Properties.ToList();
             this.checkBox_Abstract.Checked = this.Class.isAbstract;
@@ -68,19 +69,12 @@ namespace UML_Psotka
 
         private void button_Save_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        private void button_Rename_Click(object sender, EventArgs e)
-        {
-            Frm_Name frm = new Frm_Name(this.Class.Name, this.ClassList);
-            if (frm.ShowDialog() == DialogResult.OK)
+            if (ValidateChildren())
             {
-                this.Class.Name = frm.Name;
-                this.label_Class.Text = frm.Name;
+                this.Class.Name = this.textBox_Name.Text;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-
         }
 
         private void Frm_ClassSettings_Load(object sender, EventArgs e)
@@ -126,6 +120,28 @@ namespace UML_Psotka
             Method meth = this.listBox_Methods.SelectedItem as Method;
             this.Class.Methods.Remove(meth);
             this.listBox_Methods.DataSource = Class.Methods.ToList();
+        }
+
+        private void textBox_Name_Validating(object sender, CancelEventArgs e)
+        {
+
+            this.errorProvider1.SetError(this.textBox_Name, null);
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
+            if (string.IsNullOrEmpty(this.textBox_Name.Text))
+            {
+                this.errorProvider1.SetError(this.textBox_Name, "Pole nesmí být prázdné!");
+                e.Cancel = true;
+            }
+            else if (this.textBox_Name.Text.Contains(' '))
+            {
+                this.errorProvider1.SetError(this.textBox_Name, "Nesmí mít mezery!");
+                e.Cancel = true;
+            }
+            else if (!rx.IsMatch(this.textBox_Name.Text))
+            {
+                this.errorProvider1.SetError(this.textBox_Name, "Pouze písmena,čísla a podtržítko!");
+                e.Cancel = true;
+            }
         }
     }
 }

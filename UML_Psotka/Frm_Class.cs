@@ -64,7 +64,7 @@ namespace UML_Psotka
         private void textBox_name_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.textBox_name, null);
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
 
             if (string.IsNullOrWhiteSpace(this.textBox_name.Text))
             {

@@ -52,7 +52,7 @@ namespace UML_Psotka
             Frm_Paramcs frm = new Frm_Paramcs();
             if(frm.ShowDialog() == DialogResult.OK)
             {
-                this.Method.Parameters.Add(frm.DataType);
+                this.Method.Parameters.Add(frm.Name,frm.DataType);
                 this.listBox1.DataSource = this.Method.Parameters.ToList();
             }
         }
@@ -61,7 +61,7 @@ namespace UML_Psotka
         {
             if (this.listBox1.Items.Count <= 0)
                 return;
-            string prop = this.listBox1.SelectedItem as string;
+            string prop = ((KeyValuePair<string, string>)this.listBox1.SelectedItem).Key;
             this.Method.Parameters.Remove(prop);
             this.listBox1.DataSource = this.Method.Parameters.ToList();
         }
@@ -70,7 +70,7 @@ namespace UML_Psotka
         private void textBox_Name_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.comboBox_Name, null);
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
             if (string.IsNullOrWhiteSpace(this.comboBox_Name.Text))
             {
                 this.errorProvider1.SetError(this.comboBox_Name, "Nesmí být prázdné!");
@@ -96,7 +96,7 @@ namespace UML_Psotka
         private void textBox_Output_Validating(object sender, CancelEventArgs e)
         {
             this.errorProvider1.SetError(this.comboBox_Output, null);
-            Regex rx = new Regex(@"^[a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]+$");
+            Regex rx = new Regex(@"^[a-zA-Z_][a-zA-Z0-9_ěščřžýáíéůúĚŠČŘŽÝÁÍÉŮÚ]*$");
             if (string.IsNullOrEmpty(this.comboBox_Output.Text))
             {
                 this.errorProvider1.SetError(this.comboBox_Output, "Pole nesmí být prázdné!");

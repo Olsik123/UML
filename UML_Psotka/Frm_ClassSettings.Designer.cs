@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.listBox_Properties = new System.Windows.Forms.ListBox();
             this.listBox_Methods = new System.Windows.Forms.ListBox();
             this.button_Save = new System.Windows.Forms.Button();
             this.button_AddProp = new System.Windows.Forms.Button();
             this.button_AddMethod = new System.Windows.Forms.Button();
-            this.label_Class = new System.Windows.Forms.Label();
             this.button_PropUpd = new System.Windows.Forms.Button();
             this.button_PropDel = new System.Windows.Forms.Button();
-            this.button_Rename = new System.Windows.Forms.Button();
             this.button_MethUpd = new System.Windows.Forms.Button();
             this.button_MethDel = new System.Windows.Forms.Button();
             this.checkBox_Abstract = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBox_Name = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // listBox_Properties
@@ -92,16 +94,6 @@
             this.button_AddMethod.UseVisualStyleBackColor = true;
             this.button_AddMethod.Click += new System.EventHandler(this.button_AddMethod_Click);
             // 
-            // label_Class
-            // 
-            this.label_Class.AutoSize = true;
-            this.label_Class.Font = new System.Drawing.Font("Arial Black", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label_Class.Location = new System.Drawing.Point(180, 9);
-            this.label_Class.Name = "label_Class";
-            this.label_Class.Size = new System.Drawing.Size(164, 33);
-            this.label_Class.TabIndex = 2;
-            this.label_Class.Text = "label_Class";
-            // 
             // button_PropUpd
             // 
             this.button_PropUpd.Location = new System.Drawing.Point(71, 330);
@@ -121,16 +113,6 @@
             this.button_PropDel.Text = "Delete";
             this.button_PropDel.UseVisualStyleBackColor = true;
             this.button_PropDel.Click += new System.EventHandler(this.button_PropDel_Click);
-            // 
-            // button_Rename
-            // 
-            this.button_Rename.Location = new System.Drawing.Point(88, 377);
-            this.button_Rename.Name = "button_Rename";
-            this.button_Rename.Size = new System.Drawing.Size(117, 23);
-            this.button_Rename.TabIndex = 1;
-            this.button_Rename.Text = "Rename class";
-            this.button_Rename.UseVisualStyleBackColor = true;
-            this.button_Rename.Click += new System.EventHandler(this.button_Rename_Click);
             // 
             // button_MethUpd
             // 
@@ -183,16 +165,30 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Methods:";
             // 
+            // textBox_Name
+            // 
+            this.textBox_Name.Font = new System.Drawing.Font("Arial Black", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.textBox_Name.Location = new System.Drawing.Point(20, 12);
+            this.textBox_Name.Multiline = true;
+            this.textBox_Name.Name = "textBox_Name";
+            this.textBox_Name.Size = new System.Drawing.Size(540, 48);
+            this.textBox_Name.TabIndex = 4;
+            this.textBox_Name.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_Name.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Name_Validating);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Frm_ClassSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 450);
+            this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox_Abstract);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label_Class);
-            this.Controls.Add(this.button_Rename);
             this.Controls.Add(this.button_AddMethod);
             this.Controls.Add(this.button_MethDel);
             this.Controls.Add(this.button_PropDel);
@@ -206,6 +202,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Frm_ClassSettings";
             this.Load += new System.EventHandler(this.Frm_ClassSettings_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,14 +215,14 @@
         private Button button_Save;
         private Button button_AddProp;
         private Button button_AddMethod;
-        private Label label_Class;
         private Button button_PropUpd;
         private Button button_PropDel;
-        private Button button_Rename;
         private Button button_MethUpd;
         private Button button_MethDel;
         private CheckBox checkBox_Abstract;
         private Label label1;
         private Label label2;
+        private TextBox textBox_Name;
+        private ErrorProvider errorProvider1;
     }
 }

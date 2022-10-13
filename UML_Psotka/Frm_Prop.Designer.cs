@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.button_Add = new System.Windows.Forms.Button();
             this.button_back = new System.Windows.Forms.Button();
-            this.textBox_DataType = new System.Windows.Forms.TextBox();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_AccM = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.comboBox_DataType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,14 +60,6 @@
             this.button_back.Text = "Back";
             this.button_back.UseVisualStyleBackColor = true;
             this.button_back.Click += new System.EventHandler(this.button_back_Click);
-            // 
-            // textBox_DataType
-            // 
-            this.textBox_DataType.Location = new System.Drawing.Point(74, 68);
-            this.textBox_DataType.Name = "textBox_DataType";
-            this.textBox_DataType.Size = new System.Drawing.Size(126, 23);
-            this.textBox_DataType.TabIndex = 2;
-            this.textBox_DataType.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_DataType_Validating);
             // 
             // textBox_Name
             // 
@@ -118,18 +110,27 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // comboBox_DataType
+            // 
+            this.comboBox_DataType.FormattingEnabled = true;
+            this.comboBox_DataType.Location = new System.Drawing.Point(74, 68);
+            this.comboBox_DataType.Name = "comboBox_DataType";
+            this.comboBox_DataType.Size = new System.Drawing.Size(126, 23);
+            this.comboBox_DataType.TabIndex = 6;
+            this.comboBox_DataType.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_DataType_Validating);
+            // 
             // Frm_Prop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(247, 209);
+            this.Controls.Add(this.comboBox_DataType);
             this.Controls.Add(this.comboBox_AccM);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_Name);
-            this.Controls.Add(this.textBox_DataType);
             this.Controls.Add(this.button_back);
             this.Controls.Add(this.button_Add);
             this.Name = "Frm_Prop";
@@ -145,12 +146,12 @@
 
         private Button button_Add;
         private Button button_back;
-        private TextBox textBox_DataType;
         private TextBox textBox_Name;
         private Label label2;
         private Label label1;
         private ComboBox comboBox_AccM;
         private Label label3;
         private ErrorProvider errorProvider1;
+        private ComboBox comboBox_DataType;
     }
 }
