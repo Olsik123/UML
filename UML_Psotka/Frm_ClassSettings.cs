@@ -28,7 +28,8 @@ namespace UML_Psotka
             this.textBox_Name.Text = this.Class.Name;
             this.listBox_Methods.DataSource = Class.Methods.ToList();
             this.listBox_Properties.DataSource = Class.Properties.ToList();
-            this.checkBox_Abstract.Checked = this.Class.isAbstract;
+            this.comboBox_ClassType.DataSource = Enum.GetValues(typeof(classType));
+            this.comboBox_ClassType.Text = this.Class.ClassType.ToString();
         }
 
         private void button_AddProp_Click(object sender, EventArgs e)
@@ -72,6 +73,7 @@ namespace UML_Psotka
             if (ValidateChildren())
             {
                 this.Class.Name = this.textBox_Name.Text;
+                this.Class.ClassType = (classType)Enum.Parse(typeof(classType), this.comboBox_ClassType.Text);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -82,10 +84,6 @@ namespace UML_Psotka
 
         }
 
-        private void checkBox_Abstract_CheckedChanged(object sender, EventArgs e)
-        {
-            this.Class.isAbstract = this.checkBox_Abstract.Checked;
-        }
 
         private void button_AddMethod_Click(object sender, EventArgs e)
         {
@@ -142,6 +140,11 @@ namespace UML_Psotka
                 this.errorProvider1.SetError(this.textBox_Name, "Pouze písmena,čísla a podtržítko!");
                 e.Cancel = true;
             }
+        }
+
+        private void comboBox_ClassType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Class.ClassType = (classType) Enum.Parse(typeof(classType),this.comboBox_ClassType.Text);
         }
     }
 }

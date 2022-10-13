@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static UML_Psotka.Class;
 
 namespace UML_Psotka
 {
@@ -22,7 +23,8 @@ namespace UML_Psotka
             Class = @class;
             InitializeComponent();
             this.textBox_name.Text = Class.Name;
-            this.checkBox_abstract.Checked = Class.isAbstract;
+            this.comboBox_ClassType.DataSource = Enum.GetValues(typeof(classType));
+
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -30,11 +32,11 @@ namespace UML_Psotka
             if (this.ValidateChildren())
             {
                 this.Class.Name = this.textBox_name.Text;
-                this.Class.isAbstract = this.checkBox_abstract.Checked;
+                this.Class.ClassType = (classType)Enum.Parse(typeof(classType), this.comboBox_ClassType.SelectedValue.ToString(), true);
                 this.DialogResult = DialogResult.OK;
                 Font font;
 
-                if (Class.isAbstract)
+                if (Class.ClassType == classType.ABSTRACT)
                     font = new Font("Arial", 10, FontStyle.Italic);
                 else
                     font = new Font("Arial", 10);

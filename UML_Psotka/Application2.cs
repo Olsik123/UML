@@ -11,21 +11,31 @@ namespace UML_Psotka
     public class Application2
     {
         public List<Class> Classes { get; set; } = new List<Class>();
+        public List<Relation> Relations { get; set; } = new List<Relation>();
 
         public Class EditClass { get; set; }
 
-        public int CursorX { get; set; }
+        public bool MakingRelation = false;
 
+        public int CursorX { get; set; }
         public int CursorY { get; set; }
+        public int RMX { get; set; }
+
+        public int RMY { get; set; }
 
 
         public void Draw(Graphics g)
         {
+            foreach (Relation item in Relations)
+            {
+                item.Draw(g, RMX, RMY);
+            }
 
             foreach (Class item in Classes)
             {
                 item.Draw(g);
             }
+
             if (EditClass != null)
                 EditClass.Draw(g);
         }
@@ -33,10 +43,12 @@ namespace UML_Psotka
         {
             frm.ClassList = Classes;
             if (frm.ShowDialog() == DialogResult.OK)
-                 Classes.Add(frm.Class);
+                Classes.Add(frm.Class);
         }
         public void DoubleClick(int xM, int yM)
         {
+            if (MakingRelation)
+                return;
             if (EditClass != null)
                 if (EditClass.X < xM && xM < EditClass.X + EditClass.Width && EditClass.Y < yM && yM < EditClass.Y + EditClass.Height)
                 {
@@ -47,11 +59,24 @@ namespace UML_Psotka
         }
         public void MouseUp(int xM, int yM)
         {
+            if (MakingRelation)
+                return;
             if (EditClass != null)
             {
-                if (EditClass.X + EditClass.Width - 20 < xM && xM < EditClass.X + EditClass.Width && EditClass.Y + EditClass.Height - 20 < yM && yM < EditClass.Y + EditClass.Height)
+                if (EditClass.X < xM && xM < EditClass.X + 20 && EditClass.Y + EditClass.Height - 20 < yM && yM < EditClass.Y + EditClass.Height)
                 {
+                    Frm_ClassSettings frm = new Frm_ClassSettings(EditClass, this.Classes);
+                    frm.ShowDialog();
+                    EditClass.RecalcDim();
 
+                }
+                else if (EditClass.X + EditClass.Width / 2 - 10 < xM && xM < EditClass.X + EditClass.Width / 2 + 10 && EditClass.Y + EditClass.Height - 20 < yM && yM < EditClass.Y + EditClass.Height)
+                {
+                    this.Relations.Add(new Relation(EditClass));
+                    this.MakingRelation = true;
+                }
+                else if (EditClass.X + EditClass.Width - 20 < xM && xM < EditClass.X + EditClass.Width && EditClass.Y + EditClass.Height - 20 < yM && yM < EditClass.Y + EditClass.Height)
+                {
                     Frm_DeleteClass frm = new Frm_DeleteClass(EditClass.Name);
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
@@ -59,20 +84,30 @@ namespace UML_Psotka
                         this.EditClass = null;
                         return;
                     }
-
-                }
-                else if (EditClass.X < xM && xM < EditClass.X + 20 && EditClass.Y + EditClass.Height - 20 < yM && yM < EditClass.Y + EditClass.Height)
-                {
-                    Frm_ClassSettings frm = new Frm_ClassSettings(EditClass,this.Classes);
-                    frm.ShowDialog();
-                    EditClass.RecalcDim();
-
                 }
             }
+
 
         }
         public void MouseDown(int xM, int yM)
         {
+            Relation rel = this.Relations.LastOrDefault();
+            if (rel != null)
+            {
+                if (rel.SecondClass == null)
+                {
+                    foreach (Class item in Classes.AsEnumerable().Reverse())
+                    {
+                        if (item.X < xM && xM < item.X + item.Width && item.Y < yM && yM < item.Y + item.Height && rel.FirstClass != item)
+                        {
+                            rel.SecondClass = item;
+                            this.MakingRelation = false;
+                        }
+                    }
+                }
+            }
+            if (MakingRelation)
+                return;
             this.CursorX = xM;
             this.CursorY = yM;
             bool changed = false;
@@ -108,9 +143,15 @@ namespace UML_Psotka
             }
 
         }
-
+        public void ChangePosition(int xM, int yM)
+        {
+            this.RMX = xM;
+            this.RMY = yM;
+        }
         public void MouseMove(int xM, int yM, int pcW, int pcH)
         {
+            if (MakingRelation)
+                return;
             if (EditClass == null)
                 return;
 

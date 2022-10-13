@@ -62,6 +62,8 @@ namespace UML_Psotka
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
             this.App.MouseDown(e.X, e.Y);
             this.pictureBox.Refresh();
         }
@@ -69,15 +71,16 @@ namespace UML_Psotka
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             this.pictureBox.Refresh();
+            this.App.ChangePosition(e.X, e.Y);
             if (e.Button != MouseButtons.Left)
                 return;
-
-
             this.App.MouseMove(e.X, e.Y, this.pictureBox.Width, this.pictureBox.Height);
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
             this.App.MouseUp(e.X, e.Y);
             this.pictureBox.Refresh();
         }

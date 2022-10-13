@@ -28,7 +28,7 @@ namespace UML_Psotka
 
         public string Name { get; set; }
 
-        public bool isAbstract { get; set; }
+        public classType ClassType { get; set; }
 
         public HashSet<Property> Properties { get; set; } = new HashSet<Property>();
 
@@ -51,6 +51,12 @@ namespace UML_Psotka
             BOOL,
             CHAR,
         }
+        public enum classType
+        {
+            BASIC,
+            ABSTRACT,
+            INTERFACE,
+        }
 
 
         public Class(int xPosition, int yPosition)
@@ -58,7 +64,7 @@ namespace UML_Psotka
             this.Name = "";
             this.X = xPosition;
             this.Y = yPosition;
-            this.isAbstract = false;
+            this.ClassType = classType.BASIC;
             this.MinHeight = 70;
             this.MinWidth = 100;
             this.Width = MinWidth;
@@ -72,7 +78,7 @@ namespace UML_Psotka
 
             Font font;
 
-            if (this.isAbstract)
+            if (this.ClassType == classType.ABSTRACT)
                 font = new Font("Arial", 10, FontStyle.Italic);
             else
                 font = new Font("Arial", 10);
@@ -117,7 +123,9 @@ namespace UML_Psotka
                 Image img2 = UML_Psotka.Properties.Resources.settings;
                 g.DrawImage(img2, X, Y + Height - 20, 20, 20);
                 g.DrawRectangle(Pens.Black, X, Y + Height - 20, 20, 20);
-
+                img2 = UML_Psotka.Properties.Resources.relation;
+                g.DrawImage(img2, X + Width/2-10, Y + Height - 20, 20, 20);
+                g.DrawRectangle(Pens.Black, X + Width / 2 - 10, Y + Height - 20, 20, 20);
                 img2 = UML_Psotka.Properties.Resources.delete;
                 g.DrawImage(img2, X + Width - 20, Y + Height - 20, 20, 20);
                 g.DrawRectangle(Pens.Black, X + Width - 20, Y + Height - 20, 20, 20);
@@ -129,7 +137,7 @@ namespace UML_Psotka
         public void RecalcDim()
         {
             Font font;
-            if (this.isAbstract)
+            if (this.ClassType == classType.ABSTRACT)
                 font = new Font("Arial", 10, FontStyle.Italic);
             else
                 font = new Font("Arial", 10);

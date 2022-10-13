@@ -38,11 +38,12 @@
             this.button_PropDel = new System.Windows.Forms.Button();
             this.button_MethUpd = new System.Windows.Forms.Button();
             this.button_MethDel = new System.Windows.Forms.Button();
-            this.checkBox_Abstract = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.comboBox_ClassType = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,17 +135,6 @@
             this.button_MethDel.UseVisualStyleBackColor = true;
             this.button_MethDel.Click += new System.EventHandler(this.button_MethDel_Click);
             // 
-            // checkBox_Abstract
-            // 
-            this.checkBox_Abstract.AutoSize = true;
-            this.checkBox_Abstract.Location = new System.Drawing.Point(12, 377);
-            this.checkBox_Abstract.Name = "checkBox_Abstract";
-            this.checkBox_Abstract.Size = new System.Drawing.Size(70, 19);
-            this.checkBox_Abstract.TabIndex = 3;
-            this.checkBox_Abstract.Text = "Abstract";
-            this.checkBox_Abstract.UseVisualStyleBackColor = true;
-            this.checkBox_Abstract.CheckedChanged += new System.EventHandler(this.checkBox_Abstract_CheckedChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -169,9 +159,8 @@
             // 
             this.textBox_Name.Font = new System.Drawing.Font("Arial Black", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.textBox_Name.Location = new System.Drawing.Point(20, 12);
-            this.textBox_Name.Multiline = true;
             this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(540, 48);
+            this.textBox_Name.Size = new System.Drawing.Size(540, 46);
             this.textBox_Name.TabIndex = 4;
             this.textBox_Name.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_Name.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_Name_Validating);
@@ -180,14 +169,34 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // comboBox_ClassType
+            // 
+            this.comboBox_ClassType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_ClassType.FormattingEnabled = true;
+            this.comboBox_ClassType.Location = new System.Drawing.Point(12, 390);
+            this.comboBox_ClassType.Name = "comboBox_ClassType";
+            this.comboBox_ClassType.Size = new System.Drawing.Size(121, 23);
+            this.comboBox_ClassType.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(12, 362);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 25);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Class Type:";
+            // 
             // Frm_ClassSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 450);
+            this.Controls.Add(this.comboBox_ClassType);
             this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox_Abstract);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_AddMethod);
             this.Controls.Add(this.button_MethDel);
@@ -219,10 +228,11 @@
         private Button button_PropDel;
         private Button button_MethUpd;
         private Button button_MethDel;
-        private CheckBox checkBox_Abstract;
         private Label label1;
         private Label label2;
         private TextBox textBox_Name;
         private ErrorProvider errorProvider1;
+        private ComboBox comboBox_ClassType;
+        private Label label3;
     }
 }

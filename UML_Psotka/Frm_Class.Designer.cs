@@ -34,14 +34,15 @@
             this.button_back = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.checkBox_abstract = new System.Windows.Forms.CheckBox();
+            this.comboBox_ClassType = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 29);
+            this.label1.Location = new System.Drawing.Point(62, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 15);
             this.label1.TabIndex = 9;
@@ -49,15 +50,15 @@
             // 
             // textBox_name
             // 
-            this.textBox_name.Location = new System.Drawing.Point(47, 47);
+            this.textBox_name.Location = new System.Drawing.Point(12, 39);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(100, 23);
+            this.textBox_name.Size = new System.Drawing.Size(180, 23);
             this.textBox_name.TabIndex = 8;
             this.textBox_name.Validating += new System.ComponentModel.CancelEventHandler(this.textBox_name_Validating);
             // 
             // button_back
             // 
-            this.button_back.Location = new System.Drawing.Point(103, 106);
+            this.button_back.Location = new System.Drawing.Point(117, 134);
             this.button_back.Name = "button_back";
             this.button_back.Size = new System.Drawing.Size(75, 23);
             this.button_back.TabIndex = 6;
@@ -67,7 +68,7 @@
             // 
             // button_ok
             // 
-            this.button_ok.Location = new System.Drawing.Point(22, 106);
+            this.button_ok.Location = new System.Drawing.Point(12, 134);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 5;
@@ -79,23 +80,32 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // checkBox_abstract
+            // comboBox_ClassType
             // 
-            this.checkBox_abstract.AutoSize = true;
-            this.checkBox_abstract.Location = new System.Drawing.Point(47, 76);
-            this.checkBox_abstract.Name = "checkBox_abstract";
-            this.checkBox_abstract.Size = new System.Drawing.Size(98, 19);
-            this.checkBox_abstract.TabIndex = 10;
-            this.checkBox_abstract.Text = "Abstract class";
-            this.checkBox_abstract.UseVisualStyleBackColor = true;
+            this.comboBox_ClassType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_ClassType.FormattingEnabled = true;
+            this.comboBox_ClassType.Location = new System.Drawing.Point(46, 92);
+            this.comboBox_ClassType.Name = "comboBox_ClassType";
+            this.comboBox_ClassType.Size = new System.Drawing.Size(100, 23);
+            this.comboBox_ClassType.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(62, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 15);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Class type:";
             // 
             // Frm_Class
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(199, 169);
-            this.Controls.Add(this.checkBox_abstract);
+            this.ClientSize = new System.Drawing.Size(204, 169);
+            this.Controls.Add(this.comboBox_ClassType);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_name);
             this.Controls.Add(this.button_back);
@@ -116,6 +126,7 @@
         private Button button_back;
         private Button button_ok;
         private ErrorProvider errorProvider1;
-        private CheckBox checkBox_abstract;
+        private ComboBox comboBox_ClassType;
+        private Label label2;
     }
 }
