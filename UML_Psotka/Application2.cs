@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace UML_Psotka
 {
@@ -12,6 +14,7 @@ namespace UML_Psotka
     {
         public List<Class> Classes { get; set; } = new List<Class>();
         public List<Relation> Relations { get; set; } = new List<Relation>();
+        private JsonSerializerSettings js_set = new() { TypeNameHandling = TypeNameHandling.Objects, PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
         public Class EditClass { get; set; }
 
@@ -171,6 +174,96 @@ namespace UML_Psotka
                 EditClass.Y = pcH - 1 - EditClass.Height;
 
 
+        }
+        public void GenerateCode(string path)
+        {
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+
+            foreach (Class item in Classes)
+            {
+                using (StreamWriter sw = new StreamWriter(path + @"\" + item.Name + ".cs"))
+                {
+                    List<Relation> listR = Relations.FindAll(x => x.SecondClass == item && x.RelationType == Relation.relationType.Inheritance);
+
+
+                    sw.WriteLine("using System;");
+                    sw.WriteLine("using System.Collections.Generic;");
+                    sw.WriteLine("using System.Linq;");
+                    sw.WriteLine("using System.Text;");
+                    sw.WriteLine("using System.Threading.Tasks;");
+                    sw.WriteLine("");
+                    sw.WriteLine("namespace name");
+                    sw.WriteLine("{");
+
+                    string creteClass = "    public ";
+
+                    if (item.ClassType == Class.classType.BASIC)
+                    {
+                        creteClass += "class ";
+                    }
+
+                    else if (item.ClassType == Class.classType.ABSTRACT)
+                    {
+                        creteClass += "abstract class ";
+                    }
+
+                    else if (item.ClassType == Class.classType.INTERFACE)
+                    {
+                        creteClass += "interface ";
+                    }
+
+                    creteClass += item.Name + " :";
+
+                    foreach (Relation item2 in listR)
+                    {
+                        creteClass += $" {item2.FirstClass.Name},";
+                    }
+                    creteClass = creteClass.Substring(0, creteClass.Length - 1);
+
+
+                    sw.WriteLine(creteClass);
+                    sw.WriteLine("    {");
+                    foreach (Property prop in item.Properties)
+                    {
+                        sw.WriteLine($"        {prop.AccessM.ToString().ToLower()} {prop.DataType.ToString().ToLower()} {prop.Name.ToString().ToLower()}" + " { get; set; }");
+                    }
+                    foreach (Method met in item.Methods)
+                    {
+                        string paramString = " ";
+                        foreach (KeyValuePair<string, string> prm in met.Parameters)
+                        {
+                            paramString += prm.Value.ToString().ToLower() + " " + prm.Key + ",";
+                        }
+                        paramString = paramString.Substring(0, paramString.Length - 1);
+                        sw.WriteLine($"        {met.AccessM.ToString().ToLower()} {met.Output.ToString().ToLower()} {met.Name.ToString().ToLower()}({paramString}) ");
+                        sw.WriteLine("        {");
+                        sw.WriteLine("            throw new NotImplementedException();");
+                        sw.WriteLine("        }");
+                    }
+                    sw.WriteLine("    }");
+                    sw.WriteLine("}");
+
+                }
+            }
+        }
+        public void GenerateJson(string path)
+        {
+            Json json_to_exp = new Json();
+            json_to_exp.Classes = this.Classes;
+            json_to_exp.Relations = this.Relations;
+            string json = JsonConvert.SerializeObject(json_to_exp, js_set);
+
+            File.WriteAllText(path + ".json", json); 
+        }
+        public void ImportCode(string path)
+        {
+            Json json = JsonConvert.DeserializeObject<Json>(File.ReadAllText(path), js_set);
+            this.Relations = json.Relations;
+            this.Classes = json.Classes ;
         }
     }
 }

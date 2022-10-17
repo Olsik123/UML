@@ -17,5 +17,6 @@ namespace UML_Psotka
         {
             return $"{(char)this.AccessM}{this.Name} : {this.DataType}";
         }
+
     }
 }
