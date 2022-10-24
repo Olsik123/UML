@@ -47,8 +47,6 @@
             this.dependencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_relations = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.contextMenuStrip_Relation.SuspendLayout();
             this.SuspendLayout();
@@ -229,25 +227,6 @@
             this.cancelToolStripMenuItem.Text = "Cancel";
             this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
             // 
-            // button_relations
-            // 
-            this.button_relations.Image = global::UML_Psotka.Properties.Resources.relations;
-            this.button_relations.Location = new System.Drawing.Point(7, 170);
-            this.button_relations.Name = "button_relations";
-            this.button_relations.Size = new System.Drawing.Size(70, 79);
-            this.button_relations.TabIndex = 1;
-            this.button_relations.UseVisualStyleBackColor = true;
-            this.button_relations.Click += new System.EventHandler(this.button_relations_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 252);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 15);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "RELATIONS";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -255,13 +234,11 @@
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1208, 711);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_txt);
             this.Controls.Add(this.button_code);
             this.Controls.Add(this.button_png);
-            this.Controls.Add(this.button_relations);
             this.Controls.Add(this.button_newClass);
             this.Controls.Add(this.button_import);
             this.Controls.Add(this.pictureBox);
@@ -295,7 +272,5 @@
         private ToolStripMenuItem realizationToolStripMenuItem;
         private ToolStripMenuItem dependencyToolStripMenuItem;
         private ToolStripMenuItem compositionToolStripMenuItem;
-        private Button button_relations;
-        private Label label4;
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using static UML_Psotka.Relation;
 
 namespace UML_Psotka
 {
@@ -83,6 +84,19 @@ namespace UML_Psotka
                     Frm_DeleteClass frm = new Frm_DeleteClass(EditClass.Name);
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        List<Relation> copy = new List<Relation>(this.Relations);
+                        foreach (Relation item in Relations)
+                        {
+                            if (item.FirstClass == EditClass)
+                            {
+                                copy.Remove(item);
+                                continue;
+                            }
+                            if (item.SecondClass == EditClass)
+                                copy.Remove(item);
+                        }
+                        this.Relations = copy;
+
                         Classes.Remove(EditClass);
                         this.EditClass = null;
                         return;
@@ -105,14 +119,54 @@ namespace UML_Psotka
                         {
                             rel.SecondClass = item;
                             this.MakingRelation = false;
+                            Frm_Relation frm = new Frm_Relation(rel);
+                            if (frm.ShowDialog() == DialogResult.Cancel)
+                            {
+                                this.Relations.Remove(rel);
+                            }
+
                         }
                     }
                 }
             }
             if (MakingRelation)
                 return;
+
             this.CursorX = xM;
             this.CursorY = yM;
+            List<Relation> _copy = new List<Relation>(this.Relations);
+            foreach (Relation item in Relations)
+            {
+                switch (item.DeleteButtonDir)
+                {
+                    case direction.UP:
+                        if(item.SecondClass.X + item.SecondClass.Width /2 - 10 < xM && item.SecondClass.X + item.SecondClass.Width / 2 + 10 > xM && item.SecondClass.Y - 20  < yM && item.SecondClass.Y > yM)
+                        {
+                            _copy.Remove(item);
+                        }
+                        break;
+                    case direction.DOWN:
+                        if (item.SecondClass.X + item.SecondClass.Width / 2 - 10 < xM && item.SecondClass.X + item.SecondClass.Width / 2 + 10 > xM && item.SecondClass.Y + item.SecondClass.Height < yM && item.SecondClass.Y + item.SecondClass.Height + 20 > yM)
+                        {
+                            _copy.Remove(item);
+                        }
+                        break;
+                    case direction.RIGHT:
+                        if (item.SecondClass.X + item.SecondClass.Width  < xM && item.SecondClass.X + item.SecondClass.Width + 20 > xM && item.SecondClass.Y + item.SecondClass.Height / 2 - 10 < yM && item.SecondClass.Y + item.SecondClass.Height / 2 + 10 > yM)
+                        {
+                            _copy.Remove(item);
+                        }
+                        break;
+                    case direction.LEFT:
+                        if (item.SecondClass.X - 20 < xM && item.SecondClass.X > xM && item.SecondClass.Y + item.SecondClass.Height / 2 - 10 < yM && item.SecondClass.Y + item.SecondClass.Height / 2 + 10 > yM)
+                        {
+                            _copy.Remove(item);
+                        }
+                        break;
+                }
+            }
+            this.Relations = _copy;
+
             bool changed = false;
             foreach (Class item in Classes.AsEnumerable().Reverse())
             {
@@ -257,13 +311,13 @@ namespace UML_Psotka
             json_to_exp.Relations = this.Relations;
             string json = JsonConvert.SerializeObject(json_to_exp, js_set);
 
-            File.WriteAllText(path + ".json", json); 
+            File.WriteAllText(path + ".json", json);
         }
         public void ImportCode(string path)
         {
             Json json = JsonConvert.DeserializeObject<Json>(File.ReadAllText(path), js_set);
             this.Relations = json.Relations;
-            this.Classes = json.Classes ;
+            this.Classes = json.Classes;
         }
     }
 }
